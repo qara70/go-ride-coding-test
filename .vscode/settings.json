@@ -1,7 +1,6 @@
 {
   "editor.tabSize": 2,
   "editor.formatOnSave": true,
-  "editor.defaultFormatter": "sissel.shopify-liquid",
   "typescript.tsserver.experimental.enableProjectDiagnostics": true,
   "[liquid]": {
     "editor.defaultFormatter": "Shopify.theme-check-vscode",
@@ -9,5 +8,6 @@
   },
   "i18n-ally.localesPaths": ["web/frontend/locales"],
   "i18n-ally.enabledFrameworks": ["i18next-shopify"],
-  "i18n-ally.keystyle": "nested"
+  "i18n-ally.keystyle": "nested",
+  "editor.defaultFormatter": "esbenp.prettier-vscode"
 }
