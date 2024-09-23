@@ -1,0 +1,71 @@
+{
+  "name": "shopify-frontend-template-react",
+  "author": "saeedyasin.com",
+  "private": true,
+  "license": "UNLICENSED",
+  "scripts": {
+    "build": "vite build",
+    "dev": "vite",
+    "upload": "node upload_src_maps.js",
+    "test": "vitest --reporter=verbose",
+    "coverage": "vitest run --coverage",
+    "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
+    "lint:fix": "npm run lint -- --fix",
+    "pretty": "prettier --write ."
+  },
+  "type": "module",
+  "engines": {
+    "node": ">=16.0.0"
+  },
+  "stylelint": {
+    "extends": "@shopify/stylelint-polaris"
+  },
+  "dependencies": {
+    "@bugsnag/js": "^7.22.2",
+    "@bugsnag/plugin-react": "^7.19.0",
+    "@formatjs/intl-locale": "^3.4.3",
+    "@formatjs/intl-localematcher": "^0.5.2",
+    "@formatjs/intl-pluralrules": "^5.2.10",
+    "@shopify/app-bridge": "^3.7.9",
+    "@shopify/app-bridge-react": "^3.7.9",
+    "@shopify/i18next-shopify": "0.2.9",
+    "@shopify/polaris": "^12.2.0",
+    "@tanstack/react-query": "^4.36.1",
+    "@types/react-router-dom": "^5.3.3",
+    "@vitejs/plugin-react": "^4.2.1",
+    "i18next": "^23.7.8",
+    "i18next-resources-to-backend": "^1.2.0",
+    "mixpanel-browser": "^2.48.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-error-boundary": "^4.0.11",
+    "react-helmet-async": "^2.0.3",
+    "react-i18next": "^13.5.0",
+    "react-router-dom": "^6.20.1",
+    "vite": "^5.0.6"
+  },
+  "devDependencies": {
+    "@bugsnag/source-maps": "^2.3.1",
+    "@shopify/stylelint-polaris": "^15.0.4",
+    "@types/mixpanel-browser": "^2.47.5",
+    "@types/node": "^20.10.3",
+    "@types/react": "^18.2.42",
+    "@types/react-dom": "^18.2.17",
+    "@typescript-eslint/eslint-plugin": "^6.13.2",
+    "@typescript-eslint/parser": "^6.13.2",
+    "@vitest/coverage-v8": "^1.0.1",
+    "autoprefixer": "^10.4.16",
+    "eslint": "^8.55.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-prettier": "^5.0.1",
+    "eslint-plugin-react": "^7.33.2",
+    "history": "^5.3.0",
+    "jsdom": "^23.0.1",
+    "prettier": "^3.1.0",
+    "stylelint": "^15.11.0",
+    "typescript": "^5.3.3",
+    "vi-fetch": "^0.8.0",
+    "vite-plugin-compression2": "^0.11.0",
+    "vitest": "^1.0.1"
+  }
+}
