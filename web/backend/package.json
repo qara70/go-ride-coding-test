@@ -9,6 +9,7 @@
     "build": "tsc --skipLibCheck",
     "prepare": "npx prisma generate",
     "prisma:migrate": "npx prisma migrate deploy",
+    "prisma:reset": "npx prisma migrate reset",
     "serve": "cross-env NODE_ENV=production node --experimental-specifier-resolution=node dist/index.js",
     "start": "npm run prisma:migrate && npm run serve",
     "test": "vitest --reporter=verbose",
