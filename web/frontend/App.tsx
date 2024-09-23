@@ -2,7 +2,6 @@ import { NavigationMenu } from "@shopify/app-bridge-react";
 import { QueryErrorResetBoundary } from "@tanstack/react-query";
 import { ErrorBoundary } from "react-error-boundary";
 import { HelmetProvider } from "react-helmet-async";
-import { useTranslation } from "react-i18next";
 import { BrowserRouter } from "react-router-dom";
 import Routes, { type Route } from "./Routes";
 import ErrorBoundaryView from "./components/ErrorView";
@@ -20,7 +19,6 @@ export default function App() {
       eager: true,
     }
   );
-  const { t } = useTranslation();
 
   return (
     <PolarisProvider>
@@ -46,18 +44,7 @@ export default function App() {
                   <GlobalLoadingIndicator />
                   <ShopContextProvider>
                     <HelmetProvider>
-                      <NavigationMenu
-                        navigationLinks={[
-                          {
-                            label: "Settings",
-                            destination: "/settings",
-                          },
-                          {
-                            label: t("NavigationMenu.pageName"),
-                            destination: "/pagename",
-                          },
-                        ]}
-                      />
+                      <NavigationMenu navigationLinks={[]} />
                       <Routes pages={pages} />
                     </HelmetProvider>
                   </ShopContextProvider>
