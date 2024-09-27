@@ -69,6 +69,7 @@ app.use("/*", (req: Request, res: Response, next: NextFunction) => {
 
 app.use("/api/*", (req: Request, res: Response, next: NextFunction) => {
   const session: Session = res.locals?.shopify?.session;
+  console.log("session is ...", session);
   const shop = session?.shop;
   console.log("-->", req.baseUrl + req.path, "| { shop: " + shop + " }");
   return next();
@@ -101,5 +102,7 @@ app.use("/*", shopify.ensureInstalledOnShop(), async (_req, res) => {
     .send(readFileSync(join(STATIC_PATH, "index.html")));
 });
 
-app.listen(PORT);
+const server = app.listen(PORT);
+server.timeout = 1000 * 60 * 5;
+// shopをfindManyしてきて,それを使ってshopifyのsessionを作成する
 console.log(`App running on port: ${PORT} ...`);

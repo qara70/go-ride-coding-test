@@ -111,10 +111,21 @@ export default async function productCreator(
   }
 }
 
-function randomTitle() {
+export function randomTitle() {
   const adjective = ADJECTIVES[Math.floor(Math.random() * ADJECTIVES.length)];
   const noun = NOUNS[Math.floor(Math.random() * NOUNS.length)];
   return `${adjective} ${noun}`;
+}
+
+export function updateRandomTitle(existingTitle: string): string {
+  const randomPart = randomTitle();
+
+  // 既存タイトルにランダム部分があればそれを書き換え、なければ追加する
+  if (existingTitle.includes("(") && existingTitle.includes(")")) {
+    return existingTitle.replace(/\(.*?\)/, `(${randomPart})`);
+  } else {
+    return `${existingTitle} (${randomPart})`;
+  }
 }
 
 function randomPrice() {

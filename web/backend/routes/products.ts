@@ -1,8 +1,52 @@
-import productCreator from "../services/product-creator";
-import shopify from "../shopify";
 import express from "express";
+import shopify from "../shopify";
+import { GET_PRODUCTS } from "../graphql/routes/products-graphql";
+import productCreator from "../services/product-creator";
+import { execUpdatingProductTitle } from "../tasks/exec-updating-product-title";
+import { getUpdateTitleTaskStatus } from "../services/task/product/product-service";
 
 const productRoutes = express.Router();
+
+/**
+ * 商品一覧を取得する
+ */
+productRoutes.get("/", async (_req, res) => {
+  try {
+    const session = res.locals.shopify.session;
+    const client = new shopify.api.clients.Graphql({ session });
+    const products = await client.query({
+      data: GET_PRODUCTS,
+    });
+
+    res.status(200).send(products);
+  } catch (error) {
+    res.status(500).send((error as Error).message);
+  }
+});
+
+/**
+ * タイトル更新するジョブステータスを取得する
+ */
+productRoutes.get("/task/title", async (req, res) => {
+  try {
+    const shop = res.locals.shopify.session.shop;
+    const task = await getUpdateTitleTaskStatus(shop);
+    res.status(200).send(task);
+  } catch (error) {
+    res.status(500).send((error as Error).message);
+  }
+});
+
+/**
+ * 商品タイトルを1時間毎にランダムに変更するジョブを実行する
+ */
+productRoutes.post("/task/title", async (req, res) => {
+  // cronジョブを定義
+  const shop = res.locals.shopify.session.shop;
+  console.log("body check", req.body);
+  const enabled = req.body.enabled;
+  execUpdatingProductTitle(shop, enabled);
+});
 
 productRoutes.get("/count", async (_req, res) => {
   try {
