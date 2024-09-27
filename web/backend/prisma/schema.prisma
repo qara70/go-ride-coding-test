@@ -11,14 +11,16 @@ model Shop {
   shop           String        @id @unique
   scopes         String?
   isInstalled    Boolean
-  subscription   Subscription?
-  shopData       ShopData?
   installedAt    DateTime      @default(now())
   uninstalledAt  DateTime?
   installCount   Int           @default(0)
   subscribeCount Int           @default(0)
   showOnboarding Boolean       @default(true)
   test           Boolean       @default(false)
+
+  shopData       ShopData?
+  subscription   Subscription?
+  cronTitleUpdate CronTitleUpdate?
 
   @@index([shop])
 }
@@ -65,4 +67,12 @@ model Session {
   session String @db.Text
 
   @@index([id])
+}
+
+model CronTitleUpdate {
+  shop String @id @unique
+  status String  @default("STOPPED") // STOPPED: ジョブ停止中, RUNNING: ジョブ実行中
+  lastRun DateTime @updatedAt
+
+  Shop Shop @relation(fields: [shop], references: [shop], onDelete: Cascade)
 }
