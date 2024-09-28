@@ -6,7 +6,6 @@ export function useUpdateProductTitle() {
   return useMutation(
     ["api", "products", "task", "title"],
     async (enabled: boolean) => {
-      console.log("useUpdateProductTitle", enabled);
       const res = await fetch("/api/products/task/title", {
         method: "POST",
         headers: {

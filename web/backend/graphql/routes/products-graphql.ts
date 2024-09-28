@@ -48,3 +48,30 @@ export const UPDATE_PRODUCT_TITLE = `
     }
   }
 `;
+
+export const GET_PRODUCT_VARIANTS = `
+  query {
+    productVariants(first: 10) {
+      edges {
+        node {
+          id
+          displayName
+          price
+          image {
+            altText
+            url
+          }
+        }
+      }
+    }
+  }
+`;
+
+export const UPDATE_PRODUCT_PRICE = `
+  mutation ($input: ProductVariantInput!) {
+    productVariantUpdate(input: $input) {
+      product {
+        id
+      }
+    }
+  }`;

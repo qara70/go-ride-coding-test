@@ -1,6 +1,10 @@
 import express from "express";
 import shopify from "../shopify";
-import { GET_PRODUCTS } from "../graphql/routes/products-graphql";
+import {
+  GET_PRODUCT_VARIANTS,
+  GET_PRODUCTS,
+  UPDATE_PRODUCT_PRICE,
+} from "../graphql/routes/products-graphql";
 import productCreator from "../services/product-creator";
 import { execUpdatingProductTitle } from "../tasks/exec-updating-product-title";
 import { getUpdateTitleTaskStatus } from "../services/task/product/product-service";
@@ -19,6 +23,44 @@ productRoutes.get("/", async (_req, res) => {
     });
 
     res.status(200).send(products);
+  } catch (error) {
+    res.status(500).send((error as Error).message);
+  }
+});
+
+/**
+ * 商品価格を更新する
+ */
+productRoutes.get("/variant", async (req, res) => {
+  try {
+    const session = res.locals.shopify.session;
+    const client = new shopify.api.clients.Graphql({ session });
+    const updatedProduct = await client.query({
+      data: GET_PRODUCT_VARIANTS,
+    });
+    res.status(200).send(updatedProduct);
+  } catch (error) {
+    res.status(500).send((error as Error).message);
+  }
+});
+
+/**
+ * 商品価格を更新する
+ */
+productRoutes.post("/variant", async (req, res) => {
+  try {
+    const session = res.locals.shopify.session;
+    const client = new shopify.api.clients.Graphql({ session });
+    const input = req.body;
+    const updatedProduct = await client.query({
+      data: {
+        query: UPDATE_PRODUCT_PRICE,
+        variables: {
+          ...input,
+        },
+      },
+    });
+    res.status(200).send(updatedProduct);
   } catch (error) {
     res.status(500).send((error as Error).message);
   }
