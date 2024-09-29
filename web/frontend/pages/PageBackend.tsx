@@ -70,7 +70,7 @@ export default function PageBackend() {
       setTaskState({
         ...taskState,
         status:
-          taskState.status === TASK_TITLE_UPDATE_STATUS.RUNNING
+          taskState?.status === TASK_TITLE_UPDATE_STATUS.RUNNING
             ? TASK_TITLE_UPDATE_STATUS.STOPPED
             : TASK_TITLE_UPDATE_STATUS.RUNNING,
       });
@@ -99,7 +99,7 @@ export default function PageBackend() {
               handleUpdateProductTitle();
             }}
           >
-            {taskState.status !== TASK_TITLE_UPDATE_STATUS.RUNNING
+            {taskState?.status !== TASK_TITLE_UPDATE_STATUS.RUNNING
               ? "Cronを実行する"
               : "Cronを停止する"}
           </Button>

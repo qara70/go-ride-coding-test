@@ -155,8 +155,12 @@ export async function updateAllShopProductTitle() {
     where: {
       isInstalled: true,
     },
-    select: {
-      shop: true,
+    include: {
+      cronTitleUpdate: {
+        where: {
+          status: TASK_TITLE_UPDATE_STATUS.RUNNING,
+        },
+      },
     },
   });
 
