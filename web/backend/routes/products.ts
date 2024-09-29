@@ -29,7 +29,7 @@ productRoutes.get("/", async (_req, res) => {
 });
 
 /**
- * 商品価格を更新する
+ * 商品一覧を取得する
  */
 productRoutes.get("/variant", async (req, res) => {
   try {

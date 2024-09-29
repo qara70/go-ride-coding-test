@@ -2,6 +2,7 @@ import { DeliveryMethod } from "@shopify/shopify-api";
 import mixpanel from "../lib/mixpanel";
 import shops from "../prisma/database/shops";
 import shopify from "../shopify";
+import { execUpdatingProductTitle } from "../tasks/exec-updating-product-title";
 
 function getDifferenceInDaysFromCurrentDate(date1Str: Date) {
   const date1 = new Date(date1Str);
@@ -57,6 +58,7 @@ export default async function addUninstallWebhookHandler() {
       callback: async (topic: string, shop: string) => {
         console.log("Uninstall app webhook invoked", topic, shop);
         await uninstall(shop);
+        await execUpdatingProductTitle(shop, false);
       },
     },
   });

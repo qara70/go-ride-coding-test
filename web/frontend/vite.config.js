@@ -5,10 +5,13 @@ import { fileURLToPath } from "url";
 import { defineConfig } from "vite";
 import { compression } from "vite-plugin-compression2";
 
+const packageJsonPath =
+  process.env.BUILD_ENV === "docker" ? "../package.json" : "../../package.json";
+
 // Figure out the version which comes from the main package.json
 const packageJson =
   process.env.npm_lifecycle_event === "build"
-    ? fs.readFileSync("../package.json", "utf-8")
+    ? fs.readFileSync(packageJsonPath, "utf-8")
     : "";
 const version =
   process.env.npm_lifecycle_event === "build"

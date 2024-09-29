@@ -1,4 +1,5 @@
 import prisma, { tryCatch } from "../../../prisma/database/client";
+import { TASK_TITLE_UPDATE_STATUS } from "../../../utils/constants/tasks";
 
 interface CronTitleUpdate {
   shop: string;
@@ -8,7 +9,7 @@ interface CronTitleUpdate {
 
 export const getUpdateTitleTaskStatus = async (
   shop: string
-): Promise<CronTitleUpdate | null> => {
+): Promise<CronTitleUpdate> => {
   const { error, data } = await tryCatch(async () => {
     return await prisma.cronTitleUpdate.findFirst({
       where: {
@@ -20,5 +21,11 @@ export const getUpdateTitleTaskStatus = async (
     throw error;
   }
 
-  return data;
+  return data
+    ? data
+    : {
+        shop: "",
+        status: TASK_TITLE_UPDATE_STATUS.STOPPED,
+        lastRun: new Date(),
+      };
 };

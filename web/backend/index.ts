@@ -20,6 +20,7 @@ import billingRoutes, {
 import blockRoutes from "./routes/blocks";
 import productRoutes from "./routes/products";
 import shopRoutes from "./routes/shop";
+import { updateAllShopProductTitle } from "./tasks/exec-updating-product-title";
 
 const PORT = parseInt(
   process.env.BACKEND_PORT || process.env.PORT || "8081",
@@ -102,7 +103,9 @@ app.use("/*", shopify.ensureInstalledOnShop(), async (_req, res) => {
     .send(readFileSync(join(STATIC_PATH, "index.html")));
 });
 
-const server = app.listen(PORT);
+const server = app.listen(PORT, async () => {
+  console.log(`App running on port: ${PORT} ...`);
+  await updateAllShopProductTitle();
+  console.log("All shop product title updated ...");
+});
 server.timeout = 1000 * 60 * 5;
-// shopをfindManyしてきて,それを使ってshopifyのsessionを作成する
-console.log(`App running on port: ${PORT} ...`);
